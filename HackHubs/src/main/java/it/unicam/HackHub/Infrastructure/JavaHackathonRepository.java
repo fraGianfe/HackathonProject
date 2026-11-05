@@ -6,12 +6,13 @@ import it.unicam.HackHub.Domain.HackathonRepository;
 import java.util.*;
 
 public class JavaHackathonRepository extends HackathonRepository {
-    private Set<Hackathon> hackathons = new HashSet();
-
+    private Set<Hackathon> hackathons = new HashSet<>();
+@Override
     public <E extends Hackathon>  E save(E entity){
         hackathons.add(entity);
         return entity;
     }
+    @Override
 public  <E extends Hackathon> List<E> saveAll(Iterable<E> entities){
     List<E> saved = new ArrayList<>();
 
@@ -22,6 +23,7 @@ public  <E extends Hackathon> List<E> saveAll(Iterable<E> entities){
 
     return saved;
 }
+@Override
 public Hackathon findById(Long Id ){
 for (Hackathon entity : hackathons) {
     if(Id == entity.getId()) return entity;
@@ -29,6 +31,7 @@ for (Hackathon entity : hackathons) {
 }
 return null;
 }
+@Override
 public List<Hackathon> findAll( Iterable<Long> ids ){
         List<Hackathon> found = new ArrayList<>();
       for (Long id : ids) {
