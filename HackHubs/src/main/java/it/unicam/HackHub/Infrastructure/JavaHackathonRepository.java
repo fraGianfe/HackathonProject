@@ -5,13 +5,14 @@ import it.unicam.HackHub.Domain.HackathonRepository;
 
 import java.util.*;
 
-public class JavaHackathonRepository extends HackathonRepository {
+public class JavaHackathonRepository implements HackathonRepository {
     private Set<Hackathon> hackathons = new HashSet<>();
 @Override
     public <E extends Hackathon>  E save(E entity){
         hackathons.add(entity);
         return entity;
     }
+
     @Override
 public  <E extends Hackathon> List<E> saveAll(Iterable<E> entities){
     List<E> saved = new ArrayList<>();
@@ -23,21 +24,22 @@ public  <E extends Hackathon> List<E> saveAll(Iterable<E> entities){
 
     return saved;
 }
+
 @Override
-public Hackathon findById(Long Id ){
+public Optional<Hackathon> findById(Long Id ){
 for (Hackathon entity : hackathons) {
-    if(Id == entity.getId()) return entity;
+    if(Id.equals(entity.getId())) return Optional.of(entity);
 
 }
-return null;
+return Optional.empty();
 }
+
 @Override
 public List<Hackathon> findAll( Iterable<Long> ids ){
-        List<Hackathon> found = new ArrayList<>();
-      for (Long id : ids) {
-           Hackathon test = findById(id);
-           if(test != null) found.add(test);
-      }
-      return found;
+    List<Hackathon> found = new ArrayList<>();
+    for (Long id : ids) {
+        findById(id).ifPresent(found::add);
+    }
+    return found;
 }
 }

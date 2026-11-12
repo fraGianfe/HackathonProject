@@ -1,6 +1,9 @@
-package main.java.it.unicam.HackHub.Domain;
+package it.unicam.HackHub.Domain;
 import java.io.File;
 
 public class Submission {
-private File data;
+private String url;
+public Submission(String url) {
+    this.url = url;
+}
 }

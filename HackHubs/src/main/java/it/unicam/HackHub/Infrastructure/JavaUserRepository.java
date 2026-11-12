@@ -1,4 +1,3 @@
-import it.unicam.HackHub.Domain.InvitationRepository;
 import it.unicam.HackHub.Domain.UserRepository;
 
 import java.util.ArrayList;
@@ -10,21 +9,20 @@ public class JavaUserRepository implements UserRepository {
     private Set<User> users = new HashSet<>();
 
     @Override
-    public User findById(String id) {
+    public Optional<User> findById(String id) {
         for(User entity: users){
-            if(id==entity.getEmail()) return entity;
+            if(id.equals(entity.getEmail())) return Optional.of(entity);
         }
 
-        return null;
+        return Optional.empty();
     }
     @Override
     public List<User> findAll(Iterable<String> ids){
         List<User> found = new ArrayList<>();
-        for(String id: ids){
-            User test= findById(id);
-            if(test!=null) found.add(test);
-
+        for (String id : ids) {
+            findById(id).ifPresent(found::add);
         }
+
         return found;
     }
     @Override

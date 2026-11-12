@@ -2,26 +2,27 @@ import it.unicam.HackHub.Domain.TeamRepository;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 public class JavaTeamRepository implements TeamRepository {
     private Set<Team> teams = new HashSet<>();
 
     @Override
-    public Team findById(String id) {
+    public Optional<Team> findById(String id) {
         for(Team entity: teams){
-            if(id==entity.getName()) return entity;
+            if(id.equals(entity.getName())) return Optional.of(entity);
         }
 
-        return null;
+        return Optional.empty();
     }
     @Override
     public List<Team> findAll(Iterable<String> ids){
         List<Team> found = new ArrayList<>();
-        for(String id: ids){
-            Team test= findById(id);
-            if(test!=null) found.add(test);
 
+        for (String id : ids) {
+            findById(id).ifPresent(found::add);
         }
+
         return found;
     }
     @Override

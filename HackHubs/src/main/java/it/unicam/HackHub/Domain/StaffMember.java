@@ -6,4 +6,6 @@ public abstract class StaffMember {
     private String password;
     public StaffMember(String name, String email, String password) {}
 
-}
+    public String getEmail() { return email; }
+    }
+

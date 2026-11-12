@@ -1,6 +1,6 @@
-package main.java.it.unicam.HackHub.Domain;
+package it.unicam.HackHub.Domain;
 
-public class Mentor extends StafMember {
+public class Mentor extends StaffMember{
     public Mentor(String name, String email, String password) {
         super(name, email, password);
 
